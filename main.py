@@ -13,8 +13,9 @@ TOKEN_MAP = {
     TokenType.lemma: 'lemma', 
     TokenType.parse : 'parse'}
 
-ILIAD_PATH = Path('./texts/iliad.txt')
-ODYSSEY_PATH = Path('./texts/odyssey.txt')
+MYPATH = Path(__file__).parent
+ILIAD_PATH = MYPATH / Path( 'texts/iliad.txt')
+ODYSSEY_PATH = MYPATH / Path( 'texts/odyssey.txt')
 
 PATHS = [('I', ILIAD_PATH), ('O', ODYSSEY_PATH)]
 
