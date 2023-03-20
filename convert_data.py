@@ -6,7 +6,7 @@ from collections import defaultdict
 iliad  = (Path('./source_data/texts/tlg0012.tlg001.perseus-grc1.tb.xml'), './texts/iliad.txt')
 odd = (Path('./source_data/texts/tlg0012.tlg002.perseus-grc1.tb.xml'), './texts/odyssey.txt')
 
-def convert(datapath, book):
+def convert(datapath, book_path):
     dom = etree.parse(datapath)
     BOOK = 0
     CURBOOK = 0
@@ -14,8 +14,7 @@ def convert(datapath, book):
 
 
 
-    with open(Path('./texts/iliad.txt'), 'w', encoding="UTF-8") as f:
-    #with open(Path('./texts/odyssey.txt'), 'w', encoding="UTF-8") as f:
+    with open(Path(book_path), 'w', encoding="UTF-8") as f:
         sentences = dom.findall('.//sentence')
         sent_num = 0
         data = defaultdict(dict)
