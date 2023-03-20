@@ -19,7 +19,6 @@ ODYSSEY_PATH = MYPATH / Path( 'texts/odyssey.txt')
 
 PATHS = [('I', ILIAD_PATH), ('O', ODYSSEY_PATH)]
 
-print(TokenType.text == 'text')
 
 def get_tokens_by_line(token_type):
     output = {}
