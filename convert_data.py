@@ -6,7 +6,7 @@ from collections import defaultdict
 DATA = Path('./source_data/texts/tlg0012.tlg001.perseus-grc1.tb.xml')
 
 # dom = etree.parse('.\\source_data\\texts\\tlg0012.tlg001.perseus-grc1.tb.xml')
-dom = etree.parse('.\\source_data\\texts\\tlg0012.tlg002.perseus-grc1.tb.xml')
+dom = etree.parse('./source_data/texts/tlg0012.tlg002.perseus-grc1.tb.xml')
 
 
 BOOK = 0
@@ -41,7 +41,7 @@ with open(Path('./texts/odyssey.txt'), 'w', encoding="UTF-8") as f:
             
             if parse != PUNCT:
                 if cite:
-                    line_num = cite.split(':')[-1].split('.')[-1]
+                    line_num = int(cite.split(':')[-1].split('.')[-1])
             if not form:
                 print(f'Error on {sent_num}')
                 continue
@@ -72,15 +72,15 @@ with open(Path('./texts/odyssey.txt'), 'w', encoding="UTF-8") as f:
             lemmas[line_num].append(lemma or '.')
             parses[line_num].append(parse or '.')
         data[BOOK][sent_num] = (text, words, lemmas, parses)
-    for book, sentences in sorted(data.items(), key=lambda x: x[0]):
-        for key, (text, words, lemmas, parses) in sorted(sentences.items(), key=lambda x: x[0]):
-            for line_num, line_text in sorted(text.items(), key=lambda x: x[0]):
+    for book, sentences in sorted(data.items(), key=lambda x: int(f"{x[0]:02}")):
+        for key, (text, words, lemmas, parses) in sorted(sentences.items(), key=lambda x: int(f"{x[0]:03}")):
+            for line_num, line_text in sorted(text.items(), key=lambda x: int(f"{x[0]:3}")):
                 if len(line_text) < 1:
                     continue
                 print(f'{book}.{key}.{line_num}')
-                print(f'{book}.{key}.{line_num}.text', ' '.join(line_text), file=f)
-                print(f'{book}.{key}.{line_num}.form', ' '.join(words[line_num]), file=f)
-                print(f'{book}.{key}.{line_num}.lemma', ' '.join(lemmas[line_num]), file=f)
-                print(f'{book}.{key}.{line_num}.parse', ' '.join(parses[line_num]), file=f)
+                print(f'{book:02}.{key:03}.{line_num:03}.text', ' '.join(line_text), file=f)
+                print(f'{book:02}.{key:03}.{line_num:03}.form', ' '.join(words[line_num]), file=f)
+                print(f'{book:02}.{key:03}.{line_num:03}.lemma', ' '.join(lemmas[line_num]), file=f)
+                print(f'{book:02}.{key:03}.{line_num:03}.parse', ' '.join(parses[line_num]), file=f)
                 print('', file=f)
                 
