@@ -39,8 +39,7 @@ def get_tokens_by_line(token_type):
                         target = TOKEN_MAP[t]
                         try:
                             ref, cons = line.strip().split(' ', maxsplit=1)
-                            if ref.endswith(target):
-                                output[marker + '.' + ref.replace('.' + target, '')][target] = cons.split(' ')
+                            output[marker + '.' + ref.replace('.' + target, '')][target] = cons.split(' ')
                         except Exception as e:
                             print(marker, line)
                             print(e)
@@ -56,9 +55,7 @@ def get_tokens_by_line(token_type):
     if type(token_type) == tuple:
         out = {}
         for key, values in output.items():
-            out[key] = list(zip(*[list(x) for x in values.values()]))
-            print(out[key])
-            exit()
+            out[key] = zip(*[values.values()])
         return out
     return output
 
@@ -112,4 +109,4 @@ if __name__ == '__main__':
             print(key, '\t', unique, '\t', total, round(total / unique, 2)) 
         except Exception as e:
             print(key, e)           
-    print(list(get_tokens_by_chunk((TokenType.lemma, TokenType.text), ChunkType.line).values())[0])
+    print(get_tokens((TokenType.lemma, TokenType.text)))
